@@ -1,0 +1,79 @@
+{
+	
+	"easycom": {
+			"autoscan": true,
+				"custom": {
+					"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+				}
+		},
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "轮滑交流基地",
+				"enablePullDownRefresh":true
+			}
+		},
+		{
+			"path": "pages/tutorial/tutorial"
+		},
+		{
+			"path": "pages/mine/mine"
+		},
+		{
+			"path": "pages/search/search"
+		},
+		{
+			"path": "pages/publish/publish"
+		},
+		{
+			"path":"pages/detail/detail"
+		},
+		{
+			"path":"pages/login/login"
+		},
+		{
+			"path":"pages/register/register"
+		},
+		{
+			"path":"pages/vidodetail/vidodetail"
+		},
+		{
+			"path":"pages/videosearch/index"
+		},
+		{
+			"path":"pages/mypost/mypost"
+		}
+
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "轮滑交流基地",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff",
+		"enablePullDownRefresh":true
+	},
+	"tabBar":{
+		"list":[
+			{
+				"text": "首页",
+				"pagePath":"pages/index/index",
+				"iconPath":"./static/icon/shouye.png",
+				"selectedIconPath":"./static/icon/shouye.png"
+			},
+			{
+				"text": "教程",
+				"pagePath":"pages/tutorial/tutorial",
+				"iconPath":"./static/icon/bofang.png",
+				"selectedIconPath":"./static/icon/bofang.png"
+			},
+			{
+				"text": "我的",
+				"pagePath":"pages/mine/mine",
+				"iconPath":"./static/icon/wode.png",
+				"selectedIconPath":"./static/icon/wode.png"
+			}
+		]
+	}
+
+}
