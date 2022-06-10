@@ -47,7 +47,7 @@ export default {
                 const tempFilePaths = this.imageValues
                 for(let i = 0;i < tempFilePaths.length; i++) {
                         uni.uploadFile({
-                            url: 'http://192.168.31.18:80/api/uploads', 
+                            url: 'https://aqueous-forest-94483.herokuapp.com/api/uploads', 
                             filePath: tempFilePaths[i],
                             name: 'file',
                             formData: {

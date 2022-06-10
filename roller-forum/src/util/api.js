@@ -1,11 +1,11 @@
-const BASE_URL = 'http://192.168.31.18:80/api'
+const BASE_URL = 'https://aqueous-forest-94483.herokuapp.com/api'
 export const myRequest = (options) =>{
     return new Promise((resolve,reject) =>{
         uni.request({
             url: BASE_URL + options.url,
             method: options.method || 'GET',
             data: options.data || {},
-            header:{
+            header:{ 
                 'Authentization':'Bearer '+ uni.getStorageSync('token')
             },
             success: res=>{

@@ -102,6 +102,19 @@ export default {
                 this.user.token = uni.getStorageSync('token')
                 this.user._id = uni.getStorageSync('_id')
                 this.notlogin = false;
+                console.log(this.user,555);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        userLogIn(){
+            try {
+                this.user.image =  uni.getStorageSync('image')
+                this.user.username = uni.getStorageSync('username')
+                this.user.token = uni.getStorageSync('token')
+                this.user._id = uni.getStorageSync('_id')
+                this.notlogin = false;
                 console.log(this.user);
             } catch (error) {
                 console.log(error);
@@ -141,7 +154,7 @@ export default {
                     console.log(tempFilePaths);
                     
                     uni.uploadFile({
-                            url: 'http://192.168.31.18:80/api/uploadavart', 
+                            url: 'https://aqueous-forest-94483.herokuapp.com/api/uploadavart', 
                             filePath: tempFilePaths[0],
                             name: 'file',
                             formData: {

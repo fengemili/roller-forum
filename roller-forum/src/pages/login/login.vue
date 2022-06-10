@@ -59,7 +59,7 @@ export default {
                     if (page == undefined || page == null) return;
                     page.curSegment = 1;
                     //在当前页调用了另外页面的方法
-                    page.getUserInfo();
+                    page.userLogIn();
                 },
 
             })
