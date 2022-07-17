@@ -117,29 +117,64 @@ import hoverButton from '../../components/hover-button/hoverButton'
 
 			//上拉加载更多数据
 			onReachBottom(){
-				setTimeout(()=>{
+					//新手列表的下拉刷新
 					if(this.table1==true) {
-						
+						this.$refs.xinshou.loadStatus='loading'
+
 						setTimeout(()=>{
-							this.$refs.xinshou.loadStatus='loading'
-						},1000)
-						this.$refs.xinshou.offset +=1
-						this.$refs.xinshou.showMoreArticles()
+						if(this.$refs.xinshou.offset<this.$refs.xinshou.page) {
+							this.$refs.xinshou.offset +=1
+							this.$refs.xinshou.showMoreArticles()
+						}
+						if(this.$refs.xinshou.offset==this.$refs.xinshou.page){
+							this.$refs.xinshou.loadStatus='noMore'
+						}
+						},500)
 					}
+					//刹车列表的下拉刷新
 					if(this.table2==true) {
-						this.$refs.shache.offset +=1
-						this.$refs.shache.showMoreArticles()
+						this.$refs.shache.loadStatus='loading'
+
+						setTimeout(()=>{
+						if(this.$refs.shache.offset<this.$refs.shache.page) {
+							this.$refs.shache.offset +=1
+							this.$refs.shache.showMoreArticles()
+						}
+						if(this.$refs.shache.offset==this.$refs.shache.page){
+							this.$refs.shache.loadStatus='noMore'
+						}
+						},500)
 					}
+					//平花的下拉刷新
 					if(this.table3==true) {
-						this.$refs.pinghua.offset +=1
-						this.$refs.pinghua.showMoreArticles()
+						this.$refs.pinghua.loadStatus='loading'
+
+						setTimeout(()=>{
+						if(this.$refs.pinghua.offset<this.$refs.pinghua.page) {
+							this.$refs.pinghua.offset +=1
+							this.$refs.pinghua.showMoreArticles()
+						}
+						if(this.$refs.pinghua.offset==this.$refs.pinghua.page){
+							this.$refs.pinghua.loadStatus='noMore'
+						}
+						},500)
 					}
+					//速滑的下拉刷新
 					if(this.table4==true) {
-						this.$refs.suhua.offset +=1
-						this.$refs.suhua.showMoreArticles()
+						this.$refs.suhua.loadStatus='loading'
+
+						setTimeout(()=>{
+						if(this.$refs.suhua.offset<this.$refs.suhua.page) {
+							this.$refs.suhua.offset +=1
+							this.$refs.suhua.showMoreArticles()
+						}
+						if(this.$refs.suhua.offset==this.$refs.suhua.page){
+							this.$refs.suhua.loadStatus='noMore'
+						}
+						},500)
 					}
-						uni.stopPullDownRefresh()
-				},1000)
+						
+				
 			},
 
 			//刷新
@@ -154,6 +189,7 @@ import hoverButton from '../../components/hover-button/hoverButton'
 </script>
 
 <style lang='scss' scoped>
+
 	.tab{
 		width: 750rpx;
 		height: 75rpx;

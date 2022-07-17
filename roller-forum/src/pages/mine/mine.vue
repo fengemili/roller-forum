@@ -47,7 +47,6 @@ export default {
     //页面出现时回调用的一个钩子函数
     onShow(){
         this.getUserInfo()
-        console.log(this);
     },
     data() {
         return {
@@ -69,6 +68,11 @@ export default {
                 return this.user.image;
             });
         }
+    },
+
+    //我的页面不允许刷新
+    onPullDownRefresh() {
+        uni.stopPullDownRefresh()
     },
 
     methods:{
@@ -97,14 +101,18 @@ export default {
         //从本地缓存获取用户信息
         getUserInfo(){
             try {
-                this.user.image =  uni.getStorageSync('image')
-                this.user.username = uni.getStorageSync('username')
-                this.user.token = uni.getStorageSync('token')
-                this.user._id = uni.getStorageSync('_id')
-                this.notlogin = false;
-                console.log(this.user,555);
+                this.notlogin = false
+                if(this.notlogin == false){
+                    this.user.image =  uni.getStorageSync('image')
+                    this.user.username = uni.getStorageSync('username')
+                    this.user.token = uni.getStorageSync('token')
+                    this.user._id = uni.getStorageSync('_id')
+                }
+                 if(this.user._id ==''){
+                    this.notlogin = true
+                }
+                
             } catch (error) {
-                console.log(error);
             }
         },
 
@@ -115,9 +123,7 @@ export default {
                 this.user.token = uni.getStorageSync('token')
                 this.user._id = uni.getStorageSync('_id')
                 this.notlogin = false;
-                console.log(this.user);
             } catch (error) {
-                console.log(error);
             }
         },
 
@@ -151,22 +157,18 @@ export default {
                 sourceType: ['album'], //从相册选择
                 success: (chooseImageRes) => {
                     tempFilePaths = chooseImageRes.tempFilePaths;
-                    console.log(tempFilePaths);
-                    
                     uni.uploadFile({
-                            url: 'https://aqueous-forest-94483.herokuapp.com/api/uploadavart', 
+                            url: 'https://192.168.31.18/api/uploadavart', 
                             filePath: tempFilePaths[0],
                             name: 'file',
                             formData: {
                                 "_id": _id
                             },
                             success:  (uploadFileRes) => {
-                                console.log(uploadFileRes.data,555);
                                 this.image = uploadFileRes.data;
                                 this.user.image = uploadFileRes.data;
                                 uni.setStorageSync('image',uploadFileRes.data)
                                 this.getUserInfo()
-                                console.log(this);
                             }
                         });
                         
@@ -178,18 +180,15 @@ export default {
 
         //改变用户名
         async changeUserName(){
-            console.log(this.user.username);
             this.ischange = false;
             const newName  = this.user.username;
             uni.setStorageSync('username',newName);
-            console.log(newName);
             const {user} = this
             const result = await this.$myRequest({
                 url:'/user/userInfo',
                 method: 'PUT',
                 data:{newName,user}
             })
-                console.log(result);
                 this.getUserInfo()
         }
     },

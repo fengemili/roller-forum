@@ -1,7 +1,8 @@
 <template>
-			<view>
+			<view class="body">
                 <!-- 新手列表 -->
 				<uni-card
+
                     v-for="(art,index) in articles"
                     :key="index"
                     :title='art.author.username'
@@ -20,6 +21,9 @@
 			    </uni-card>
 
                 <uni-load-more :status="loadStatus"></uni-load-more>
+
+
+
 			</view>
 </template>
 
@@ -34,7 +38,8 @@ export default {
             loadStatus: 'more',
             limit:5,
             offset:1,
-            articles:[]
+            articles:[],
+            pages:0
         };
     },
     mounted(){
@@ -42,20 +47,22 @@ export default {
         this.getArticles()
     },
 
-    onPullDownRefresh() {
-        console.log(2222);
-    },
+    // onPullDownRefresh() {
+    //     console.log(2222);
+    // },
 
     methods: {
 
             //获取数据
 			async getArticles(){
+                this.offset = 1
                 const result = await this.$myRequest({
                     url:`/articles/?tag=${this.tag}&limit=${this.limit}&offset=${this.offset}`,
                     method: 'GET',
                 })
                 console.log(result);
 				if(result.statusCode == 200){
+                    this.page = Math.ceil(result.data.articleCount / this.limit)
 					let arr = result.data.articles
 					arr.forEach((item)=>{
 						item.createdAt = this.formatTime(item.createdAt)
@@ -65,8 +72,11 @@ export default {
 					})
 					this.articles = arr
 				}
+                
+                
             },
 
+            //下拉加载更多的函数
             async showMoreArticles(){
                 const result = await this.$myRequest({
                     url:`/articles/?tag=${this.tag}&limit=${this.limit}&offset=${this.offset}`,
@@ -76,10 +86,10 @@ export default {
 					let arr = result.data.articles
 					arr.forEach((item)=>{
 						item.createdAt = this.formatTime(item.createdAt)
-                        this.articles.push(item)
 						if(item.rooter){
 							this.renameKEY(item,"rooter","author")
 						}
+                        this.articles.push(item)
 					})
 					
 				}
@@ -88,6 +98,8 @@ export default {
                 }else{
                     this.loadStatus = 'more'
                 }
+                console.log(this.articles);
+                console.log(this.offset);
             },
 
 			//重命名函数
@@ -126,5 +138,6 @@ export default {
     .body{
         display: flex;
         flex-direction: column;
+        
     }
 </style>

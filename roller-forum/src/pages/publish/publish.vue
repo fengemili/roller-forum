@@ -32,8 +32,17 @@ export default {
 			    range: [{"value": 0,"text": "新手"	},{"value": 1,"text": "刹车"},{"value": 2,"text": "平滑"},{"value": 3,"text": "速滑"}]
 			}
 		},
+
 		methods:{
             async send(){
+                if(this.article.tag == ''){
+                    console.log(588888);
+                    uni.showToast({
+                        title:'请选择标签',
+                        icon:'error'
+                    })
+                    return 
+                }
                 console.log(this.article);
                 const {article} = this
                 const result = await this.$myRequest({
@@ -47,7 +56,7 @@ export default {
                 const tempFilePaths = this.imageValues
                 for(let i = 0;i < tempFilePaths.length; i++) {
                         uni.uploadFile({
-                            url: 'https://aqueous-forest-94483.herokuapp.com/api/uploads', 
+                            url: 'https://192.168.31.18/api/uploads', 
                             filePath: tempFilePaths[i],
                             name: 'file',
                             formData: {
@@ -96,7 +105,6 @@ export default {
 			select(e){
 				console.log('选择文件：',e)
                 this.imageValues = e.tempFilePaths
-                console.log(this.imageValues,777);
 			},
 			// 获取上传进度
 			progress(e){

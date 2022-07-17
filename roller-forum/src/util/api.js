@@ -1,4 +1,4 @@
-const BASE_URL = 'https://aqueous-forest-94483.herokuapp.com/api'
+const BASE_URL = 'https://192.168.31.18/api'
 export const myRequest = (options) =>{
     return new Promise((resolve,reject) =>{
         uni.request({
